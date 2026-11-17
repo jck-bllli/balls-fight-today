@@ -1,5 +1,9 @@
 name: render-pfp
-on: workflow_dispatch
+on:
+  push:
+    branches: [claude/project-thread-fb6pgz]
+    paths: [".github/workflows/render-pfp.yml", "pfp/**"]
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
