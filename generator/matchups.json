@@ -1,0 +1,114 @@
+[
+ {
+  "id": "race_0001",
+  "a": "fibonacci",
+  "b": "cube",
+  "mode": "none",
+  "style": "cream",
+  "caption": "Fibonacci Ball vs Cube Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nNo help. Pure math.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0002",
+  "a": "doubling",
+  "b": "compound",
+  "mode": "catchup",
+  "style": "midnight",
+  "caption": "Doubling Ball vs Compound Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball bounces faster.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0003",
+  "a": "fibonacci",
+  "b": "doubling",
+  "mode": "second_wind",
+  "style": "mint",
+  "caption": "Fibonacci Ball vs Doubling Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball hits harder.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0004",
+  "a": "fibonacci",
+  "b": "compound",
+  "mode": "none",
+  "style": "cream",
+  "caption": "Fibonacci Ball vs Compound Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nNo help. Pure math.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0005",
+  "a": "fibonacci",
+  "b": "doubling",
+  "mode": "catchup",
+  "style": "midnight",
+  "caption": "Fibonacci Ball vs Doubling Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball bounces faster.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0006",
+  "a": "fast",
+  "b": "strong",
+  "mode": "second_wind",
+  "style": "mint",
+  "caption": "Fast Ball vs Strong Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball hits harder.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0007",
+  "a": "compound",
+  "b": "strong",
+  "mode": "none",
+  "style": "cream",
+  "caption": "Compound Ball vs Strong Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nNo help. Pure math.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0008",
+  "a": "fast",
+  "b": "square",
+  "mode": "catchup",
+  "style": "midnight",
+  "caption": "Fast Ball vs Square Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball bounces faster.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0009",
+  "a": "fibonacci",
+  "b": "square",
+  "mode": "second_wind",
+  "style": "mint",
+  "caption": "Fibonacci Ball vs Square Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball hits harder.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0010",
+  "a": "doubling",
+  "b": "fast",
+  "mode": "none",
+  "style": "cream",
+  "caption": "Doubling Ball vs Fast Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nNo help. Pure math.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0011",
+  "a": "fibonacci",
+  "b": "fast",
+  "mode": "catchup",
+  "style": "midnight",
+  "caption": "Fibonacci Ball vs Fast Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball bounces faster.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0012",
+  "a": "doubling",
+  "b": "strong",
+  "mode": "second_wind",
+  "style": "mint",
+  "caption": "Doubling Ball vs Strong Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball hits harder.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0013",
+  "a": "steady",
+  "b": "square",
+  "mode": "none",
+  "style": "cream",
+  "caption": "Steady Ball vs Square Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nNo help. Pure math.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ },
+ {
+  "id": "race_0014",
+  "a": "compound",
+  "b": "fast",
+  "mode": "catchup",
+  "style": "midnight",
+  "caption": "Compound Ball vs Fast Ball: who wins? \ud83d\udc47\nComment your pick before the end.\nCOMEBACK: the trailing ball bounces faster.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballrace #satisfying #math #simulation #marblerace #oddlysatisfying #whowins"
+ }
+]

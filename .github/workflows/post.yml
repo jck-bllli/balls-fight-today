@@ -1,0 +1,68 @@
+name: Post daily Reel
+
+on:
+  schedule:
+    - cron: "17 17 * * *"   # 17:17 UTC = 9:17am Pacific (standard time)
+    - cron: "47 18 * * *"   # backup 90 min later (--once-per-day skips it if the first run posted)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check = test only, post = publish the next video now"
+        required: true
+        default: check
+        type: choice
+        options: [check, post]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: post-reel
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Post (or check)
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          NEW_TOKEN_FILE: ${{ runner.temp }}/new_token
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.mode }}" = "check" ]; then
+            python post_next.py --check
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            python post_next.py --once-per-day
+          else
+            python post_next.py
+          fi
+      - name: Save renewed Instagram token
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          NEW_TOKEN_FILE: ${{ runner.temp }}/new_token
+        run: |
+          if [ -s "$NEW_TOKEN_FILE" ]; then
+            echo "::add-mask::$(cat "$NEW_TOKEN_FILE")"
+            if [ -z "$GH_TOKEN" ]; then
+              echo "::warning::Meta issued a new Instagram token but the GH_PAT secret is missing, so it could not be saved."
+            else
+              gh secret set IG_ACCESS_TOKEN --repo "$GITHUB_REPOSITORY" < "$NEW_TOKEN_FILE"
+              echo "Saved the renewed token to IG_ACCESS_TOKEN." >> "$GITHUB_STEP_SUMMARY"
+            fi
+            rm -f "$NEW_TOKEN_FILE"
+          fi
+      - name: Record what was posted
+        run: |
+          if [ -n "$(git status --porcelain posted.json)" ]; then
+            git config user.name "ballrace-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add posted.json
+            git commit -m "Posted next Reel"
+            git pull --rebase --autostash
+            git push
+          fi
