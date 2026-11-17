@@ -1,15 +1,19 @@
 name: Render on home PC
 
+# Keeps 4 unposted ball races ready. Each run picks a fresh matchup, searches for a near tie
+# (or a 1 to 3 s comeback), renders it on Jack's PC and commits it to videos/ + queue.json.
 on:
-  push:
-    branches: [main]
-    paths: ["generator/matchups.json"]   # new matchups -> render them on the PC
+  schedule:
+    - cron: "17 10 * * *"   # daily top-up, 2:17am PT
   workflow_dispatch:
     inputs:
       test:
-        description: "Test only: render the first matchup to a temp folder and push a preview (commits nothing to main)"
+        description: "Test only: render one race and push a small preview to the test-previews branch (queues nothing)"
         type: boolean
         default: false
+      count:
+        description: "How many to render now (blank = top the queue up to 4 unposted)"
+        default: ""
 
 permissions:
   contents: write
@@ -20,77 +24,64 @@ concurrency:
 
 jobs:
   render:
-    runs-on: [self-hosted, render-pc]   # Jack's home PC; the cloud only renders if the PC is down
-    timeout-minutes: 120
+    runs-on: [self-hosted, render-pc]
+    timeout-minutes: 180
     defaults:
       run:
-        # Git Bash by full path: plain "bash" resolves to the WSL stub in System32 for the runner service
         shell: C:\PROGRA~1\Git\bin\bash.exe --noprofile --norc -eo pipefail {0}
     env:
-      PYTHONUTF8: "1"   # Windows defaults to cp1252
+      PYTHONUTF8: "1"
     steps:
       - uses: actions/checkout@v5
         with:
           clean: false
-
-      - name: Python environment for this repo
-        # each repo gets its own venv, so the two runners never pip-install into the same folder at once
+      - name: Python environment
         run: |
           [ -x .venv/Scripts/python.exe ] || python -m venv .venv
+          .venv/Scripts/python.exe -m pip install -q -r generator/requirements.txt
           cygpath -w "$PWD/.venv/Scripts" >> "$GITHUB_PATH"
-
       - name: Find ffmpeg
-        # the runner service may not see ffmpeg on PATH, so look in the usual install folders too
         run: |
           for d in /c/ffmpeg/bin "/c/Program Files/WinGet/Packages"/Gyan.FFmpeg*/*/bin; do
-            if [ -f "$d/ffmpeg.exe" ]; then
-              "$d/ffmpeg.exe" -hide_banner -version | head -1
-              cygpath -w "$d" >> "$GITHUB_PATH"
-              exit 0
-            fi
+            if [ -f "$d/ffmpeg.exe" ]; then cygpath -w "$d" >> "$GITHUB_PATH"; exit 0; fi
           done
           command -v ffmpeg || { echo "::error::ffmpeg is not installed on the home PC"; exit 1; }
 
-      - name: Setup (fast after the first run)
-        run: bash generator/setup.sh
-
-      - name: Test render (commits nothing)
+      - name: Test render (queues nothing)
         if: inputs.test
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           start=$(date +%s)
-          python generator/produce.py --only race_0001 --dry-run | tee test.log
-          out=$(sed -n 's/^Dry run done. Output in //p' test.log)
-          rm -rf test-render prev && mkdir -p test-render prev && cp "$out"/*.mp4 test-render/
-          # small previews on the test-previews branch, so a cloud session can check them
-          for f in test-render/*.mp4; do
+          rm -rf generator/out prev && mkdir -p prev
+          (cd generator && python daily.py --test)
+          for f in generator/out/*.mp4; do
             ffmpeg -v error -y -i "$f" -vf scale=540:-2 -c:v libx264 -crf 28 -preset veryfast -c:a aac -b:a 96k "prev/$(basename "$f")"
           done
+          cp generator/out/*.json prev/ 2>/dev/null || true
           (cd prev && git init -q && git checkout -q -b test-previews && git add . \
-            && git -c user.name=ballrace-bot -c user.email=actions@users.noreply.github.com commit -qm "Test previews" \
+            && git -c user.name=ballrace-bot -c user.email=actions@users.noreply.github.com commit -qm "Test preview" \
             && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" test-previews)
-          echo "Test render of race_0001 took $(( $(date +%s) - start ))s on the home PC." >> "$GITHUB_STEP_SUMMARY"
+          echo "Test render took $(( $(date +%s) - start ))s on the home PC." >> "$GITHUB_STEP_SUMMARY"
 
-      - uses: actions/upload-artifact@v4
-        if: inputs.test
-        with:
-          name: test-render
-          path: test-render/
-
-      - name: Render every matchup not queued yet
-        if: ${{ !inputs.test }}
-        run: python generator/produce.py --new
-
-      - name: Save the videos and queue
+      - name: Render and queue
         if: ${{ !inputs.test }}
         run: |
-          if [ -n "$(git status --porcelain videos queue.json)" ]; then
-            git config user.name "ballrace-bot"
-            git config user.email "actions@users.noreply.github.com"
-            git add videos queue.json
-            git commit -m "Render new matchups on home PC"
-            git pull --rebase --autostash
-            git push
-            echo "Rendered new matchups on the home PC." >> "$GITHUB_STEP_SUMMARY"
-          fi
+          left=$(python - <<'PY'
+          import json
+          q = json.load(open("queue.json")); done = {p["id"] for p in json.load(open("posted.json"))}
+          print(sum(1 for x in q if x["id"] not in done))
+          PY
+          )
+          n="${{ inputs.count }}"
+          [ -n "$n" ] || n=$(( 4 - left ))
+          echo "unposted: $left, rendering: $n"
+          if [ "$n" -gt 0 ]; then (cd generator && python daily.py --count "$n"); fi
+      - name: Save
+        if: ${{ !inputs.test }}
+        run: |
+          git add videos queue.json generator/state.json
+          git diff --cached --quiet && exit 0
+          git -c user.name=ballrace-bot -c user.email=actions@users.noreply.github.com commit -m "Render new races on home PC"
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"

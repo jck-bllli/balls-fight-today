@@ -1,0 +1,15 @@
+{
+ "history": [],
+ "bad": [
+  "doubling__steady|split",
+  "doubling__steady_fast|split",
+  "cube__steady|split",
+  "fast__steady|split",
+  "heavy__steady|split",
+  "heavy__steady_fast|split",
+  "doubling__steady|late",
+  "doubling__steady_fast|late",
+  "cube__steady|late"
+ ],
+ "n": 0
+}
