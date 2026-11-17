@@ -62,11 +62,24 @@ def txt(d,cx,cy,t,size,col,ow):
         if os.path.exists(p): f=ImageFont.truetype(p,s(size)); break
     d.text((s(cx),s(cy)),t,font=f,fill=col,anchor="mm",stroke_width=s(ow),stroke_fill=INK)
 
+def star(d,cx,cy,r1,r2,n,col,ow=14,rot=0):
+    for rr,cc in ((ow,INK),(0,col)):
+        P=[]
+        for i in range(n*2):
+            r=(r1 if i%2==0 else r2)+rr*(1 if i%2==0 else 1.6); a=rot+math.pi*i/n
+            P.append((s(cx+r*math.cos(a)),s(cy+r*math.sin(a))))
+        d.polygon(P,fill=cc)
 def p1():
     im,d=new(CREAM)
-    ball(d,390,570,250,RED,DRED,"grit",1); ball(d,700,510,250,BLUE,DBLUE,"grit",-1)
-    for a in (200,235,270):
-        r=math.radians(a); line(d,[(545+130*math.cos(r),540+130*math.sin(r)),(545+200*math.cos(r),540+200*math.sin(r))],18)
+    for dy in (-130,-30,70,170):
+        line(d,[(40,575+dy),(110,575+dy)],18,RED if dy%2==0 else DRED)
+        line(d,[(970,575+dy),(1040,575+dy)],18,BLUE if dy%2==0 else DBLUE)
+    ball(d,300,575,215,RED,DRED,"grit",1); ball(d,780,575,215,BLUE,DBLUE,"grit",-1)
+    star(d,540,575,50,108,9,YEL,12,0.2)
+    for sx in (-1,1):
+        for y0,y1 in ((330,230),(820,920)):
+            line(d,[(540+sx*40,y0),(540+sx*85,y1)],20)
+        line(d,[(540,350),(540,250)],20); line(d,[(540,800),(540,900)],20)
     return im
 def p2():
     im,d=new(BLUE); ball(d,540,560,360,RED,DRED,"det"); return im
