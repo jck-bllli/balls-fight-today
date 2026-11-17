@@ -11,6 +11,12 @@ on:
         description: "Test only: render one race and push a small preview to the test-previews branch (queues nothing)"
         type: boolean
         default: false
+      pair:
+        description: "Test only: force a pair like speedup__steady (blank = next in rotation)"
+        default: ""
+      mode:
+        description: "Test only: force split, late or photo"
+        default: ""
       count:
         description: "How many to render now (blank = top the queue up to 4 unposted)"
         default: ""
@@ -54,7 +60,7 @@ jobs:
         run: |
           start=$(date +%s)
           rm -rf generator/out prev && mkdir -p prev
-          (cd generator && python daily.py --test)
+          (cd generator && python daily.py --test --pair "${{ inputs.pair }}" --mode "${{ inputs.mode }}")
           for f in generator/out/*.mp4; do
             ffmpeg -v error -y -i "$f" -vf scale=540:-2 -c:v libx264 -crf 28 -preset veryfast -c:a aac -b:a 96k "prev/$(basename "$f")"
           done

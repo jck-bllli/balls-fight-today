@@ -75,9 +75,9 @@ def caption(ra, rb):
             "Comment your pick before the end.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballsimulation #satisfying #physics #math #simulation")
 
 
-def make_one(st):
-    mode = bs.MIX[st["n"] % len(bs.MIX)]
-    for pair in next_pair(st, mode):
+def make_one(st, force_pair="", force_mode=""):
+    mode = force_mode or bs.MIX[st["n"] % len(bs.MIX)]
+    for pair in ([force_pair] if force_pair else next_pair(st, mode)):
         uses = sum(1 for h in st["history"] if h["pair"] == pair)
         spec, found = bs.tune_search(spec_for(pair, st["n"]), offset=uses * 3000, mode=mode)
         if not found:
@@ -110,6 +110,8 @@ if __name__ == "__main__":
     ap.add_argument("--count", type=int, default=1)
     ap.add_argument("--survey", action="store_true")
     ap.add_argument("--test", action="store_true", help="render one video to generator/out, touch no state or queue")
+    ap.add_argument("--pair", default="", help="force a pair, e.g. speedup__steady (sorted names)")
+    ap.add_argument("--mode", default="", help="force a result mode: split, late or photo")
     a = ap.parse_args()
     if a.survey:
         for p in pairs():
@@ -128,7 +130,7 @@ if __name__ == "__main__":
         with open(QUEUE_JSON, "w") as f:
             f.write("[]")
         save = lambda st: None
-        print(json.dumps(make_one(st)))
+        print(json.dumps(make_one(st, a.pair, a.mode)))
         print(f"Dry run done. Output in {QUEUE}")
     else:
         st = load()
