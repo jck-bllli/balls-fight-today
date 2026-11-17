@@ -1,0 +1,12 @@
+[
+ {
+  "id": "ball_0001",
+  "video": "videos/ball_0001.mp4",
+  "caption": "Speeding Up Ball vs Steady Ball. Which one finishes first? Comment your pick before the end.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballsimulation #satisfying #physics #math #simulation",
+  "style": "speedup__steady",
+  "mode": "split",
+  "voice": "none",
+  "gap": 0.075,
+  "thumb_offset_ms": 1000
+ }
+]
