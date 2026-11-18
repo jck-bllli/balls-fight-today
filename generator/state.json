@@ -4,6 +4,26 @@
    "pair": "speedup__steady",
    "key": "ball_0001",
    "gap": 0.075
+  },
+  {
+   "pair": "grower__steady",
+   "key": "ball_0002",
+   "gap": 0.075
+  },
+  {
+   "pair": "steady__walls",
+   "key": "ball_0003",
+   "gap": 1.992
+  },
+  {
+   "pair": "chaos__steady_fast",
+   "key": "ball_0004",
+   "gap": 0.092
+  },
+  {
+   "pair": "fifth__sizehit",
+   "key": "ball_0005",
+   "gap": 0.05
   }
  ],
  "bad": [
@@ -15,7 +35,18 @@
   "heavy__steady_fast|split",
   "doubling__steady|late",
   "doubling__steady_fast|late",
-  "cube__steady|late"
+  "cube__steady|late",
+  "doublejump__steady|split",
+  "doublejump__steady|late",
+  "splitter__steady|split",
+  "doubling__swarm|photo",
+  "speedup__strong|photo",
+  "doublejump__steady|photo",
+  "moon__tripling|photo",
+  "doubling__walls|photo",
+  "counting__strong|photo",
+  "counting__fading|photo",
+  "prime__tripling|photo"
  ],
- "n": 1
+ "n": 5
 }
