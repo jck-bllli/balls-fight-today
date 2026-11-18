@@ -134,5 +134,5 @@ if __name__ == "__main__":
         print(f"Dry run done. Output in {QUEUE}")
     else:
         st = load()
-        for _ in range(a.count):
-            print(json.dumps(make_one(st)))
+        for i in range(a.count):
+            print(json.dumps(make_one(st, a.pair if i == 0 else "", a.mode if i == 0 else "")))

@@ -12,10 +12,10 @@ on:
         type: boolean
         default: false
       pair:
-        description: "Test only: force a pair like speedup__steady (blank = next in rotation)"
+        description: "Force the first pair, like speedup__steady (blank = next in rotation)"
         default: ""
       mode:
-        description: "Test only: force split, late or photo"
+        description: "Force the first result mode: split, late or photo"
         default: ""
       count:
         description: "How many to render now (blank = top the queue up to 4 unposted)"
@@ -82,7 +82,7 @@ jobs:
           n="${{ inputs.count }}"
           [ -n "$n" ] || n=$(( 4 - left ))
           echo "unposted: $left, rendering: $n"
-          if [ "$n" -gt 0 ]; then (cd generator && python daily.py --count "$n"); fi
+          if [ "$n" -gt 0 ]; then (cd generator && python daily.py --count "$n" --pair "${{ inputs.pair }}" --mode "${{ inputs.mode }}"); fi
       - name: Save
         if: ${{ !inputs.test }}
         run: |
