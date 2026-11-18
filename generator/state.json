@@ -1,5 +1,11 @@
 {
- "history": [],
+ "history": [
+  {
+   "pair": "speedup__steady",
+   "key": "ball_0001",
+   "gap": 0.075
+  }
+ ],
  "bad": [
   "doubling__steady|split",
   "doubling__steady_fast|split",
@@ -11,5 +17,5 @@
   "doubling__steady_fast|late",
   "cube__steady|late"
  ],
- "n": 0
+ "n": 1
 }
