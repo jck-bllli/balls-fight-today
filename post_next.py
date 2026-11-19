@@ -4,6 +4,7 @@
 Runs in GitHub Actions. Needs the secret IG_ACCESS_TOKEN.
   python post_next.py --check   # verify token, account, quota and the next video's public link; posts nothing
   python post_next.py           # post the next video and record it in posted.json
+  python post_next.py --once-per-slot   # scheduled runs: skip if something already went out in the last 4 hours
 """
 import json
 import os
@@ -17,6 +18,7 @@ API = "https://graph.instagram.com/v26.0"
 TOKEN = os.environ["IG_ACCESS_TOKEN"].strip()
 REPO = os.environ.get("GITHUB_REPOSITORY", "jck-bllli/balls-fight-today")
 BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
+GUARD_HOURS = 4  # two posts a day: slots are ~7h apart, backups 90 min after each slot
 
 
 def call(method, url, params=None):
@@ -87,17 +89,18 @@ def main():
     quota = call("GET", f"{API}/{ig_id}/content_publishing_limit", {"fields": "quota_usage,config"})
     summary(f"Publishing quota: {quota.get('data', [{}])[0]}")
 
-    if "--once-per-day" in sys.argv:  # scheduled runs (1 slot a day plus a backup): skip if something already went out in the last 20 hours
+    if "--once-per-slot" in sys.argv or "--once-per-day" in sys.argv:  # scheduled runs: 2 slots a day plus a backup each; skip if something went out recently
         done = [p for p in json.load(open("posted.json")) if p.get("posted_at")]
         if done:
             last = time.mktime(time.strptime(done[-1]["posted_at"], "%Y-%m-%dT%H:%M:%SZ")) - time.timezone
-            if time.time() - last < 20 * 3600:
+            if time.time() - last < GUARD_HOURS * 3600:
                 summary(f"Already posted {done[-1]['id']} at {done[-1]['posted_at']}; skipping this scheduled run.")
                 return
     item = next_item()
     if not item:
+        print("::error::Queue is empty. Add videos to queue.json (the render workflow should have topped it up).")
         summary("Queue is empty. Add videos to queue.json.")
-        return
+        sys.exit("Queue is empty")
     url = public_url(item)
     status, size = check_url(url)
     summary(f"Next up: {item['id']}  ({size / 1e6:.1f} MB, link status {status})")
@@ -121,9 +124,11 @@ def main():
         if code == "FINISHED":
             break
         if code in ("ERROR", "EXPIRED"):
+            print(f"::error::Instagram could not process the video: {st}")
             sys.exit(f"Instagram could not process the video: {st}")
         time.sleep(10)
     else:
+        print("::error::Timed out waiting for Instagram to process the video")
         sys.exit("Timed out waiting for Instagram to process the video")
 
     media = call("POST", f"{API}/{ig_id}/media_publish", {"creation_id": container})["id"]
