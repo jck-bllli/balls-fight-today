@@ -1,9 +1,11 @@
-name: Post daily Reel
+name: Post Reel
 
 on:
   schedule:
-    - cron: "17 17 * * *"   # 17:17 UTC = 9:17am Pacific (standard time)
-    - cron: "47 18 * * *"   # backup 90 min later (--once-per-day skips it if the first run posted)
+    - cron: "17 16 * * *"   # 16:17 UTC = 8:17am Pacific (standard time)
+    - cron: "47 17 * * *"   # backup 90 min later (the guard skips it if the first run posted)
+    - cron: "17 23 * * *"   # 23:17 UTC = 3:17pm Pacific
+    - cron: "47 0 * * *"    # backup 90 min later
   workflow_dispatch:
     inputs:
       mode:
@@ -36,7 +38,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.mode }}" = "check" ]; then
             python post_next.py --check
           elif [ "${{ github.event_name }}" = "schedule" ]; then
-            python post_next.py --once-per-day
+            python post_next.py --once-per-slot
           else
             python post_next.py
           fi
