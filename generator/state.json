@@ -24,6 +24,11 @@
    "pair": "fifth__sizehit",
    "key": "ball_0005",
    "gap": 0.05
+  },
+  {
+   "pair": "prime__steady_fast",
+   "key": "ball_0006",
+   "gap": 1.933
   }
  ],
  "bad": [
@@ -46,7 +51,9 @@
   "doubling__walls|photo",
   "counting__strong|photo",
   "counting__fading|photo",
-  "prime__tripling|photo"
+  "prime__tripling|photo",
+  "splitter__steady|late",
+  "steady__steady_fast|late"
  ],
- "n": 5
+ "n": 6
 }

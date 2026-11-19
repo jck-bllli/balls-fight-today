@@ -48,5 +48,15 @@
   "voice": "none",
   "gap": 0.05,
   "thumb_offset_ms": 1000
+ },
+ {
+  "id": "ball_0006",
+  "video": "videos/ball_0006.mp4",
+  "caption": "Prime Ball vs Quick Steady Ball. Which one finishes first? Comment your pick before the end.\n\nFollow @ballsfighttoday for a new race every day.\n\n#ballsimulation #satisfying #physics #math #simulation",
+  "style": "prime__steady_fast",
+  "mode": "late",
+  "voice": "none",
+  "gap": 1.933,
+  "thumb_offset_ms": 1000
  }
 ]
