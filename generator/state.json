@@ -29,6 +29,16 @@
    "pair": "prime__steady_fast",
    "key": "ball_0006",
    "gap": 1.933
+  },
+  {
+   "pair": "steady_fast__superbouncy",
+   "key": "ball_0007",
+   "gap": 0.108
+  },
+  {
+   "pair": "gambler__steady",
+   "key": "ball_0008",
+   "gap": 0.192
   }
  ],
  "bad": [
@@ -53,7 +63,11 @@
   "counting__fading|photo",
   "prime__tripling|photo",
   "splitter__steady|late",
-  "steady__steady_fast|late"
+  "steady__steady_fast|late",
+  "steady__steady_fast|split",
+  "combo__steady_fast|split",
+  "factorial__steady_fast|split",
+  "steady__sticky|split"
  ],
- "n": 6
+ "n": 8
 }
