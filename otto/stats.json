@@ -1,0 +1,199 @@
+{
+ "median_views": 10223.5,
+ "styles": [
+  {
+   "style": "grower__steady",
+   "posts": 1,
+   "median_views": 83981,
+   "avg_outlier": 8.21,
+   "median_eng_rate": 0.0095,
+   "shares": 2,
+   "saves": 13
+  },
+  {
+   "style": "speedup__steady",
+   "posts": 1,
+   "median_views": 27937,
+   "avg_outlier": 2.73,
+   "median_eng_rate": 0.0087,
+   "shares": 10,
+   "saves": 9
+  },
+  {
+   "style": "fifth__sizehit",
+   "posts": 1,
+   "median_views": 15182,
+   "avg_outlier": 1.49,
+   "median_eng_rate": 0.0086,
+   "shares": 0,
+   "saves": 5
+  },
+  {
+   "style": "chaos__steady_fast",
+   "posts": 1,
+   "median_views": 14072,
+   "avg_outlier": 1.38,
+   "median_eng_rate": 0.0098,
+   "shares": 1,
+   "saves": 4
+  },
+  {
+   "style": "steady_fast__superbouncy",
+   "posts": 1,
+   "median_views": 6375,
+   "avg_outlier": 0.62,
+   "median_eng_rate": 0.0088,
+   "shares": 0,
+   "saves": 1
+  },
+  {
+   "style": "steady__walls",
+   "posts": 1,
+   "median_views": 4027,
+   "avg_outlier": 0.39,
+   "median_eng_rate": 0.0137,
+   "shares": 2,
+   "saves": 1
+  },
+  {
+   "style": "prime__steady_fast",
+   "posts": 1,
+   "median_views": 3629,
+   "avg_outlier": 0.35,
+   "median_eng_rate": 0.0078,
+   "shares": 0,
+   "saves": 0
+  },
+  {
+   "style": "gambler__steady",
+   "posts": 1,
+   "median_views": 2621,
+   "avg_outlier": 0.26,
+   "median_eng_rate": 0.0113,
+   "shares": 1,
+   "saves": 0
+  }
+ ],
+ "posts": [
+  {
+   "id": "ball_0001",
+   "style": "speedup__steady",
+   "permalink": "https://www.instagram.com/reel/Df35Nbfgppk/",
+   "posted_at": "2026-11-18T06:46:50Z",
+   "views": 27937,
+   "reach": 20824,
+   "likes": 159,
+   "comments": 2,
+   "shares": 10,
+   "saved": 9,
+   "total_interactions": 182,
+   "outlier": 2.73,
+   "eng_rate": 0.0087
+  },
+  {
+   "id": "ball_0002",
+   "style": "grower__steady",
+   "permalink": "https://www.instagram.com/reel/Df61YlbAlLf/",
+   "posted_at": "2026-11-19T10:11:18Z",
+   "views": 83981,
+   "reach": 59603,
+   "likes": 540,
+   "comments": 4,
+   "shares": 2,
+   "saved": 13,
+   "total_interactions": 565,
+   "outlier": 8.21,
+   "eng_rate": 0.0095
+  },
+  {
+   "id": "ball_0003",
+   "style": "steady__walls",
+   "permalink": "https://www.instagram.com/reel/Df8OGlmE01p/",
+   "posted_at": "2026-11-19T23:06:33Z",
+   "views": 4027,
+   "reach": 3279,
+   "likes": 42,
+   "comments": 0,
+   "shares": 2,
+   "saved": 1,
+   "total_interactions": 45,
+   "outlier": 0.39,
+   "eng_rate": 0.0137
+  },
+  {
+   "id": "ball_0004",
+   "style": "chaos__steady_fast",
+   "permalink": "https://www.instagram.com/reel/Df8vlXZCX_A/",
+   "posted_at": "2026-11-20T03:59:04Z",
+   "views": 14072,
+   "reach": 10689,
+   "likes": 99,
+   "comments": 1,
+   "shares": 1,
+   "saved": 4,
+   "total_interactions": 105,
+   "outlier": 1.38,
+   "eng_rate": 0.0098
+  },
+  {
+   "id": "ball_0005",
+   "style": "fifth__sizehit",
+   "permalink": "https://www.instagram.com/reel/Df-wPKVExW0/",
+   "posted_at": "2026-11-20T22:43:14Z",
+   "views": 15182,
+   "reach": 11526,
+   "likes": 94,
+   "comments": 0,
+   "shares": 0,
+   "saved": 5,
+   "total_interactions": 99,
+   "outlier": 1.49,
+   "eng_rate": 0.0086
+  },
+  {
+   "id": "ball_0006",
+   "style": "prime__steady_fast",
+   "permalink": "https://www.instagram.com/reel/Df_UUleCeRE/",
+   "posted_at": "2026-11-21T03:58:33Z",
+   "views": 3629,
+   "reach": 3076,
+   "likes": 24,
+   "comments": 0,
+   "shares": 0,
+   "saved": 0,
+   "total_interactions": 24,
+   "outlier": 0.35,
+   "eng_rate": 0.0078
+  },
+  {
+   "id": "ball_0007",
+   "style": "steady_fast__superbouncy",
+   "permalink": "https://www.instagram.com/reel/DgBODFEJUUc/",
+   "posted_at": "2026-11-21T21:42:14Z",
+   "views": 6375,
+   "reach": 4775,
+   "likes": 41,
+   "comments": 0,
+   "shares": 0,
+   "saved": 1,
+   "total_interactions": 42,
+   "outlier": 0.62,
+   "eng_rate": 0.0088
+  },
+  {
+   "id": "ball_0008",
+   "style": "gambler__steady",
+   "permalink": "https://www.instagram.com/reel/DgBzgQWD8AA/",
+   "posted_at": "2026-11-22T03:09:31Z",
+   "views": 2621,
+   "reach": 1948,
+   "likes": 20,
+   "comments": 1,
+   "shares": 1,
+   "saved": 0,
+   "total_interactions": 22,
+   "outlier": 0.26,
+   "eng_rate": 0.0113
+  }
+ ]
+}
