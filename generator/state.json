@@ -39,6 +39,21 @@
    "pair": "gambler__steady",
    "key": "ball_0008",
    "gap": 0.192
+  },
+  {
+   "pair": "steady_fast__strong",
+   "key": "ball_0009",
+   "gap": 0.092
+  },
+  {
+   "pair": "fast__steady",
+   "key": "ball_0010",
+   "gap": 2.0
+  },
+  {
+   "pair": "sizehit__steady_fast",
+   "key": "ball_0011",
+   "gap": 0.117
   }
  ],
  "bad": [
@@ -67,7 +82,8 @@
   "steady__steady_fast|split",
   "combo__steady_fast|split",
   "factorial__steady_fast|split",
-  "steady__sticky|split"
+  "steady__sticky|split",
+  "combo__steady_fast|late"
  ],
- "n": 8
+ "n": 11
 }

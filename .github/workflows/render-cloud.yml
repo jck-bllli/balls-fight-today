@@ -1,0 +1,41 @@
+name: Render in cloud (fallback)
+
+# Backup for the home PC. If fewer than 2 races are unposted (PC offline), render up to 4 on a GitHub runner (~35 s each).
+on:
+  schedule:
+    - cron: "47 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render-cloud
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Render if the queue is low
+        run: |
+          left=$(python - <<'PY'
+          import json
+          q = json.load(open("queue.json")); done = {p["id"] for p in json.load(open("posted.json"))}
+          print(sum(1 for x in q if x["id"] not in done))
+          PY
+          )
+          echo "unposted: $left"
+          if [ "$left" -ge 2 ]; then exit 0; fi
+          pip install -q -r generator/requirements.txt
+          (cd generator && python daily.py --count $(( 4 - left )))
+          git add videos queue.json generator/state.json
+          git diff --cached --quiet && exit 0
+          git -c user.name=ballrace-bot -c user.email=actions@users.noreply.github.com commit -m "Render new races in cloud (PC fallback)"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
